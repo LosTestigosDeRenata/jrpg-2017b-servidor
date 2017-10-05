@@ -10,6 +10,7 @@ import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import mensajeria.PaquetePeleable;
 import mensajeria.PaquetePersonaje;
 import mensajeria.PaqueteUsuario;
 
@@ -186,7 +187,7 @@ public class Conector {
 
 	}
 
-	public void actualizarPersonaje(PaquetePersonaje paquetePersonaje) {
+	public void actualizarPersonaje(PaquetePeleable paquetePersonaje) {
 		try {
 			int i = 2;
 			int j = 1;
@@ -195,11 +196,14 @@ public class Conector {
 							+ "  WHERE idPersonaje=?");
 			
 			stActualizarPersonaje.setInt(1, paquetePersonaje.getFuerza());
-			stActualizarPersonaje.setInt(2, paquetePersonaje.getDestreza());
-			stActualizarPersonaje.setInt(3, paquetePersonaje.getInteligencia());
+			if(paquetePersonaje instanceof PaquetePersonaje)
+			{
+				stActualizarPersonaje.setInt(2, ((PaquetePersonaje)paquetePersonaje).getDestreza());
+				stActualizarPersonaje.setInt(3, ((PaquetePersonaje)paquetePersonaje).getInteligencia());
+				stActualizarPersonaje.setInt(6, ((PaquetePersonaje)paquetePersonaje).getExperiencia());
+			}
 			stActualizarPersonaje.setInt(4, paquetePersonaje.getSaludTope());
 			stActualizarPersonaje.setInt(5, paquetePersonaje.getEnergiaTope());
-			stActualizarPersonaje.setInt(6, paquetePersonaje.getExperiencia());
 			stActualizarPersonaje.setInt(7, paquetePersonaje.getNivel());
 			stActualizarPersonaje.setInt(8, paquetePersonaje.getId());
 			stActualizarPersonaje.executeUpdate();
@@ -210,21 +214,25 @@ public class Conector {
 			ResultSet resultadoItemsID = stDameItemsID.executeQuery();
 			PreparedStatement stDatosItem = connect.prepareStatement("SELECT * FROM item WHERE idItem = ?");
 			ResultSet resultadoDatoItem = null;
-			paquetePersonaje.eliminarItems();
 		
-			while (j <= 9) {
-				if(resultadoItemsID.getInt(i) != -1) {
-					stDatosItem.setInt(1, resultadoItemsID.getInt(i));
-					resultadoDatoItem = stDatosItem.executeQuery();
-					
-					paquetePersonaje.anadirItem(resultadoDatoItem.getInt("idItem"), resultadoDatoItem.getString("nombre"),
-							resultadoDatoItem.getInt("wereable"), resultadoDatoItem.getInt("bonusSalud"),
-							resultadoDatoItem.getInt("bonusEnergia"), resultadoDatoItem.getInt("bonusFuerza"),
-							resultadoDatoItem.getInt("bonusDestreza"), resultadoDatoItem.getInt("bonusInteligencia"),
-							resultadoDatoItem.getString("foto"), resultadoDatoItem.getString("fotoEquipado"));
+			if(paquetePersonaje instanceof PaquetePersonaje) // Como los NPC no portan items, el codigo de aca adentro solo debe ser ejecutado si el "paquetePErsonaje" es una instancia de "PaquetePersonaje" y no de "PaqueteNPC".
+			{
+				((PaquetePersonaje)paquetePersonaje).eliminarItems();
+				
+				while (j <= 9) {
+					if(resultadoItemsID.getInt(i) != -1) {
+						stDatosItem.setInt(1, resultadoItemsID.getInt(i));
+						resultadoDatoItem = stDatosItem.executeQuery();
+						
+						((PaquetePersonaje)paquetePersonaje).anadirItem(resultadoDatoItem.getInt("idItem"), resultadoDatoItem.getString("nombre"),
+								resultadoDatoItem.getInt("wereable"), resultadoDatoItem.getInt("bonusSalud"),
+								resultadoDatoItem.getInt("bonusEnergia"), resultadoDatoItem.getInt("bonusFuerza"),
+								resultadoDatoItem.getInt("bonusDestreza"), resultadoDatoItem.getInt("bonusInteligencia"),
+								resultadoDatoItem.getString("foto"), resultadoDatoItem.getString("fotoEquipado"));
+					}
+					i++;
+					j++;
 				}
-				i++;
-				j++;
 			}
 			Servidor.log.append("El personaje " + paquetePersonaje.getNombre() + " se ha actualizado con éxito."  + System.lineSeparator());;
 		} catch (SQLException e) {
