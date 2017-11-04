@@ -11,39 +11,40 @@ import servidor.Servidor;
 
 public class InicioSesion extends ComandosServer {
 
-	@Override
-	public void ejecutar() {
-		Paquete paqueteSv = new Paquete(null, 0);
-		paqueteSv.setComando(Comando.INICIOSESION);
-		
-		// Recibo el paquete usuario
-		escuchaCliente.setPaqueteUsuario((PaqueteUsuario) (gson.fromJson(cadenaLeida, PaqueteUsuario.class)));
-		
-		// Si se puede loguear el usuario le envio un mensaje de exito y el paquete personaje con los datos
-		try {
-			if (Servidor.getConector().loguearUsuario(escuchaCliente.getPaqueteUsuario())) {
+    @Override
+    public void ejecutar() {
+	Paquete paqueteSv = new Paquete(null, 0);
+	paqueteSv.setComando(Comando.INICIOSESION);
 
-				PaquetePersonaje paquetePersonaje = new PaquetePersonaje();
-				paquetePersonaje = Servidor.getConector().getPersonaje(escuchaCliente.getPaqueteUsuario());
-				paquetePersonaje.setComando(Comando.INICIOSESION);
-				paquetePersonaje.setMensaje(Paquete.msjExito);
-				escuchaCliente.setIdPersonaje(paquetePersonaje.getId());
+	// Recibo el paquete usuario
+	escuchaCliente.setPaqueteUsuario((gson.fromJson(cadenaLeida, PaqueteUsuario.class)));
 
-				escuchaCliente.getSalida().writeObject(gson.toJson(paquetePersonaje));
-				
-				PaqueteDeNpcs paqueteDeNpcs = new PaqueteDeNpcs();
-				paqueteDeNpcs = Servidor.getPaqueteDeNpcs();
-				paqueteDeNpcs.setComando(Comando.ACTUALIZARNPCS);
-				escuchaCliente.getSalida().writeObject(gson.toJson(paqueteDeNpcs));
+	// Si se puede loguear el usuario le envio un mensaje de exito y el
+	// paquete personaje con los datos
+	try {
+	    if (Servidor.getConector().loguearUsuario(escuchaCliente.getPaqueteUsuario())) {
 
-			} else {
-				paqueteSv.setMensaje(Paquete.msjFracaso);
-				escuchaCliente.getSalida().writeObject(gson.toJson(paqueteSv));
-			}
-		} catch (IOException e) {
-			Servidor.log.append("Falló al intentar iniciar sesión \n");
-		}
+		PaquetePersonaje paquetePersonaje = new PaquetePersonaje();
+		paquetePersonaje = Servidor.getConector().getPersonaje(escuchaCliente.getPaqueteUsuario());
+		paquetePersonaje.setComando(Comando.INICIOSESION);
+		paquetePersonaje.setMensaje(Paquete.msjExito);
+		escuchaCliente.setIdPersonaje(paquetePersonaje.getId());
 
+		escuchaCliente.getSalida().writeObject(gson.toJson(paquetePersonaje));
+
+		PaqueteDeNpcs paqueteDeNpcs = new PaqueteDeNpcs();
+		paqueteDeNpcs = Servidor.getPaqueteDeNpcs();
+		paqueteDeNpcs.setComando(Comando.ACTUALIZARNPCS);
+		escuchaCliente.getSalida().writeObject(gson.toJson(paqueteDeNpcs));
+
+	    } else {
+		paqueteSv.setMensaje(Paquete.msjFracaso);
+		escuchaCliente.getSalida().writeObject(gson.toJson(paqueteSv));
+	    }
+	} catch (IOException e) {
+	    Servidor.log.append("Falló al intentar iniciar sesión \n");
 	}
+
+    }
 
 }
