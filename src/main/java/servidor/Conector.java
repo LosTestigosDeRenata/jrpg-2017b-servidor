@@ -1,5 +1,6 @@
 package servidor;
 
+import java.io.File;
 import java.io.IOException;
 import java.sql.Connection;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -13,8 +14,10 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.criterion.Order;
+import org.hibernate.service.ServiceRegistry;
 
 import contenedores.ContenedorInventario;
 import contenedores.ContenedorItem;
@@ -28,7 +31,6 @@ import mensajeria.PaqueteUsuario;
 /**
  * Clase que se encarga de la conexión entre el servidor y la base de datos.
  * @author Santi
- *
  */
 public class Conector {
 
@@ -42,10 +44,11 @@ public class Conector {
      */
     public void connect() {
 	Servidor.log.append("Estableciendo conexión con la base de datos..." + System.lineSeparator());
+	
 	Configuration cfg = new Configuration();
-	cfg.configure("configHibernate/hibernate.cfg.xml");
-
+	cfg.configure("hibernate.cfg.xml");
 	factory = cfg.buildSessionFactory();
+	
 	Servidor.log.append("Conexión con la base de datos establecida con éxito." + System.lineSeparator());
     }
 
@@ -499,6 +502,7 @@ public class Conector {
 	    pudeLoguear = true;
 	    Servidor.log.append("El usuario " + user.getUsername() + " ha iniciado sesión." + System.lineSeparator());
 	} catch (Exception e) {
+	    e.printStackTrace();
 	    Servidor.log.append("El usuario " + user.getUsername()
 		    + " ha realizado un intento fallido de inicio de sesión." + System.lineSeparator());
 	}
@@ -539,7 +543,8 @@ public class Conector {
 
     /**
      * Actualiza el inventario de un personaje de la base de datos.
-     * @param paquetePersonaje Personaje al cual se le actualizará el inventario.
+     * @param paquetePersonaje Personaje al cual se le actualizará el
+     *            inventario.
      */
     public void actualizarInventario(final PaquetePersonaje paquetePersonaje) {
 	Session session = factory.openSession();
@@ -632,8 +637,8 @@ public class Conector {
     }
 
     /**
-     * Actualiza un personaje. Solo actualiza sus atributos por lo que debe emplearse
-     * únicamente para actualizarlo cuando sube de nivel.
+     * Actualiza un personaje. Solo actualiza sus atributos por lo que debe
+     * emplearse únicamente para actualizarlo cuando sube de nivel.
      * @param personaje Personaje al cual se le actualizaran los atributos.
      * @return devuelve true si se pudo actualizar el personaje.
      */
