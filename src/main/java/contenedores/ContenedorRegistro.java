@@ -1,5 +1,10 @@
 package contenedores;
 
+/**
+ * Clase contenedor de la tabla Registro para hibernate.
+ * @author Santi
+ *
+ */
 public class ContenedorRegistro {
     private String usuario;
     private String password;

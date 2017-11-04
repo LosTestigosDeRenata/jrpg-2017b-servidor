@@ -4,6 +4,11 @@ import java.io.IOException;
 
 import dominio.Item;
 
+/**
+ * Clase contenedor de la tabla Item para hibernate.
+ * @author Santi
+ *
+ */
 public class ContenedorItem {
     private int idItem;
     private String nombre;

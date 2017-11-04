@@ -1,5 +1,10 @@
 package contenedores;
 
+/**
+ * Clase contenedor de la tabla Inventario para hibernate.
+ * @author Santi
+ *
+ */
 public class ContenedorInventario {
     private int idInventario;
     private int manos1;

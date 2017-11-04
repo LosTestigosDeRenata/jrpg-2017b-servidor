@@ -1,5 +1,10 @@
 package contenedores;
 
+/**
+ * Clase contenedor de la tabla Mochila para hibernate.
+ * @author Santi
+ *
+ */
 public class ContenedorMochila {
     private int idMochila;
     private int item1;

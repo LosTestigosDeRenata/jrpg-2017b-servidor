@@ -51,10 +51,17 @@ public class Servidor extends Thread {
     public static AtencionConexiones atencionConexiones;
     public static AtencionMovimientos atencionMovimientos;
 
+    /**
+     * Programa de ejecución principal.
+     * @param args
+     */
     public static void main(final String[] args) {
 	cargarInterfaz();
     }
 
+    /**
+     * Muestra la interfaz gráfica del servidor.
+     */
     private static void cargarInterfaz() {
 	JFrame ventana = new JFrame("Servidor WOME");
 	ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -187,6 +194,11 @@ public class Servidor extends Thread {
 	}
     }
 
+    /**
+     * Envia un mensaje a un usuario conectado.
+     * @param pqm PaqueteMensaje con el mensaje a enviar.
+     * @return devuelve true si se pudo enviar el mensaje.
+     */
     public static boolean mensajeAUsuario(final PaqueteMensaje pqm) {
 	boolean result = true;
 	boolean noEncontro = true;
@@ -211,11 +223,16 @@ public class Servidor extends Thread {
 	}
     }
 
+    /**
+     * Método sin implementar.
+     * @param contador
+     * @return
+     */
     public static boolean mensajeAAll(final int contador) {
 
-	boolean result;
+	boolean result = personajesConectados.size() == contador + 1;
 
-	if (result = personajesConectados.size() == contador + 1) {
+	if (result) {
 	    // inicio
 								  // sesion
 	    Servidor.log.append("Se ha enviado un mensaje a todos los usuarios" + System.lineSeparator());
@@ -238,26 +255,44 @@ public class Servidor extends Thread {
 	 */
     }
 
+    /**
+     * @return devuelve una lista con todos los clientes conectados.
+     */
     public static ArrayList<EscuchaCliente> getClientesConectados() {
 	return clientesConectados;
     }
 
+    /**
+     * @return devuelve un mapa con las ubicaciones de los personajes.
+     */
     public static Map<Integer, PaqueteMovimiento> getUbicacionPersonajes() {
 	return ubicacionPersonajes;
     }
 
+    /**
+     * @return devuelve un mapa con los personajes conectados al servidor.
+     */
     public static Map<Integer, PaquetePersonaje> getPersonajesConectados() {
 	return personajesConectados;
     }
 
+    /**
+     * @return devuelve el PaqueteDeNpcs del servidor.
+     */
     public static PaqueteDeNpcs getPaqueteDeNpcs() {
 	return paqueteDeNpcs;
     }
 
+    /**
+     * @param paqueteDeNpcs PaqueteDeNpcs a setear.
+     */
     public static void setPaqueteDeNpcs(final PaqueteDeNpcs paqueteDeNpcs) {
 	Servidor.paqueteDeNpcs = paqueteDeNpcs;
     }
 
+    /**
+     * @return devuelve el conector del servidor.
+     */
     public static Conector getConector() {
 	return conexionDB;
     }

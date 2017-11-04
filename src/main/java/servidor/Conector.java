@@ -25,12 +25,21 @@ import dominio.MyRandom;
 import mensajeria.PaquetePersonaje;
 import mensajeria.PaqueteUsuario;
 
+/**
+ * Clase que se encarga de la conexión entre el servidor y la base de datos.
+ * @author Santi
+ *
+ */
 public class Conector {
 
+    private static final int ULTIMO_ID_ITEM = 29;
+    private static final int CANT_ITEMS_POSIBLES = 9;
     public static final int MAX_CANT_ITEMS = 20;
     private SessionFactory factory;
-    Connection connect;
 
+    /**
+     * Establece la conexión del servidor con la base de datos.
+     */
     public void connect() {
 	Servidor.log.append("Estableciendo conexión con la base de datos..." + System.lineSeparator());
 	Configuration cfg = new Configuration();
@@ -40,10 +49,19 @@ public class Conector {
 	Servidor.log.append("Conexión con la base de datos establecida con éxito." + System.lineSeparator());
     }
 
+    /**
+     * Cierra la conexión entre la base de datos y el servidor.
+     */
     public void close() {
 	factory.close();
     }
 
+    /**
+     * Registra un personaje en la base de datos.
+     * @param paquetePersonaje El personaje a registrar.
+     * @param paqueteUsuario El usuario a quién le pertenece el personaje.
+     * @return devuelve true si se pudo registrar el personaje.
+     */
     public boolean registrarPersonaje(final PaquetePersonaje paquetePersonaje, final PaqueteUsuario paqueteUsuario) {
 	boolean pudeRegistrar = false;
 	ContenedorPersonaje contPer = new ContenedorPersonaje();
@@ -134,6 +152,11 @@ public class Conector {
 	return pudeRegistrar;
     }
 
+    /**
+     * Actualiza los datos de un personaje en la base de datos.
+     * @param personaje El personaje a actualizar.
+     * @return devuelve true si se pudo actualizar el personaje.
+     */
     public boolean actualizarPersonaje(final PaquetePersonaje personaje) {
 	boolean pudeActualizar = false;
 	ContenedorPersonaje contPer = new ContenedorPersonaje();
@@ -202,6 +225,12 @@ public class Conector {
 	return pudeActualizar;
     }
 
+    /**
+     * Elimina un personaje de la base de datos.
+     * @param idPersonaje El ID del personaje a eliminar.
+     * @param usuario El usuario al que le pertenece el personaje.
+     * @return devuelve true si se pudo eliminar el personaje.
+     */
     public boolean eliminarPersonaje(final int idPersonaje, final PaqueteUsuario usuario) {
 	boolean pudeEliminar = false;
 	Session session = factory.openSession();
@@ -235,6 +264,12 @@ public class Conector {
 	return pudeEliminar;
     }
 
+    /**
+     * Trae un personaje de la base de datos.
+     * @param user Usuario al que le pertenece el personaje.
+     * @return devuelve un PaquetePersonaje con los datos cargados.
+     * @throws IOException
+     */
     public PaquetePersonaje getPersonaje(PaqueteUsuario user) throws IOException {
 	PaquetePersonaje paquete = new PaquetePersonaje();
 
@@ -315,6 +350,11 @@ public class Conector {
 	return paquete;
     }
 
+    /**
+     * Trae la información de la mochila de un personaje de la base de datos.
+     * @param idMochila ID de la Mochila a buscar.
+     * @return devuelve un ContenedorMochila con los datos cargados.
+     */
     public ContenedorMochila getContMoch(final int idMochila) {
 	Session session = factory.openSession();
 	ContenedorMochila cont = new ContenedorMochila();
@@ -342,6 +382,11 @@ public class Conector {
 	return cont;
     }
 
+    /**
+     * Trae la información de un item de la base de datos.
+     * @param itemId ID del item a buscar.
+     * @return devuelve un ContenedorItem con los datos cargados.
+     */
     public ContenedorItem getContItem(final int itemId) {
 	Session session = factory.openSession();
 	ContenedorItem cont = new ContenedorItem();
@@ -367,6 +412,11 @@ public class Conector {
 	return cont;
     }
 
+    /**
+     * Registra a un usuario en la base de datos.
+     * @param user Usuario a registrar.
+     * @return devuelve true si se pudo registrar el usuario.
+     */
     public boolean registrarUsuario(final PaqueteUsuario user) {
 
 	boolean pudoRegistrar = false;
@@ -394,6 +444,11 @@ public class Conector {
 	return pudoRegistrar;
     }
 
+    /**
+     * Trae un usuario de la base de datos.
+     * @param usuario El nombre del usuario a buscar.
+     * @return devuelve un PaqueteUsuario con los datos cargados.
+     */
     public PaqueteUsuario getUsuario(String usuario) {
 	PaqueteUsuario paquete = new PaqueteUsuario();
 	Session session = factory.openSession();
@@ -431,6 +486,11 @@ public class Conector {
 	return paquete;
     }
 
+    /**
+     * Verifica que exista un usuario determinado en la base de datos.
+     * @param user Usuario a verificar.
+     * @return devuelve true si el usuario existe en la base de datos.
+     */
     public boolean loguearUsuario(final PaqueteUsuario user) {
 	boolean pudeLoguear = false;
 
@@ -446,6 +506,11 @@ public class Conector {
 	return pudeLoguear;
     }
 
+    /**
+     * Elimina a un usuario del a base de datos.
+     * @param user El usuario a eliminar.
+     * @return devuelve true si se pudo eliminar.
+     */
     public boolean eliminarUsuario(final PaqueteUsuario user) {
 	boolean pudeEliminar = false;
 	Session session = factory.openSession();
@@ -472,6 +537,10 @@ public class Conector {
 	return pudeEliminar;
     }
 
+    /**
+     * Actualiza el inventario de un personaje de la base de datos.
+     * @param paquetePersonaje Personaje al cual se le actualizará el inventario.
+     */
     public void actualizarInventario(final PaquetePersonaje paquetePersonaje) {
 	Session session = factory.openSession();
 	// ContenedorMochila cont = new ContenedorMochila();
@@ -511,6 +580,10 @@ public class Conector {
 	}
     }
 
+    /**
+     * Le agrega un item aleatorio a un personaje.
+     * @param idPersonaje Personaje al cual se le agregará el item.
+     */
     public void actualizarInventario(final int idPersonaje) {
 	PaquetePersonaje paquetePersonaje = Servidor.getPersonajesConectados().get(idPersonaje);
 	Session session = factory.openSession();
@@ -528,8 +601,8 @@ public class Conector {
 	}
 
 	// le agrego un item aleatorio
-	if (paquetePersonaje.getCantItems() < 9) {
-	    int itemGanado = new MyRandom().rangoInt(1, 29);
+	if (paquetePersonaje.getCantItems() < CANT_ITEMS_POSIBLES) {
+	    int itemGanado = new MyRandom().rangoInt(1, ULTIMO_ID_ITEM);
 	    vectorItems[cantItems] = itemGanado;
 	    cantItems++;
 	}
@@ -558,6 +631,12 @@ public class Conector {
 	}
     }
 
+    /**
+     * Actualiza un personaje. Solo actualiza sus atributos por lo que debe emplearse
+     * únicamente para actualizarlo cuando sube de nivel.
+     * @param personaje Personaje al cual se le actualizaran los atributos.
+     * @return devuelve true si se pudo actualizar el personaje.
+     */
     public boolean actualizarPersonajeSubioNivel(final PaquetePersonaje personaje) {
 	boolean pudeActualizar = false;
 	ContenedorPersonaje contPer = new ContenedorPersonaje();

@@ -1,5 +1,10 @@
 package contenedores;
 
+/**
+ * Clase contenedor de la tabla ItemModificado para hibernate.
+ * @author Santi
+ *
+ */
 public class ContenedorItemModificado {
     private int idItemModificado;
     private int bonoAtaque;
