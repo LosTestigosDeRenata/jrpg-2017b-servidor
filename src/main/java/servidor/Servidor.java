@@ -214,13 +214,13 @@ public class Servidor extends Thread {
 	if (result) {
 	    Servidor.log
 		    .append(pqm.getUserEmisor() + " envió mensaje a " + pqm.getUserReceptor() + System.lineSeparator());
-	    return true;
 	} else {
 	    // Si no existe informo y devuelvo false
 	    Servidor.log.append("El mensaje para " + pqm.getUserReceptor()
 		    + " no se envió, ya que se encuentra desconectado." + System.lineSeparator());
-	    return false;
 	}
+	
+	return result;
     }
 
     /**
