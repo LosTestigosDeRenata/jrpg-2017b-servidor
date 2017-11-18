@@ -38,26 +38,45 @@ public class Talk extends ComandosServer {
 			}
 		    }
 		}
+
 	    } else {
 		Servidor.log.append("No se envió el mensaje \n");
 	    }
 	} else {
-	    for (Map.Entry<Integer, PaquetePersonaje> personaje : Servidor.getPersonajesConectados().entrySet()) {
-		if (personaje.getValue().getNombre().equals(paqueteMensaje.getUserEmisor())) {
-		    idUser = personaje.getValue().getId();
+	    if (cheat(paqueteMensaje)) {
+		try {
+		    escuchaCliente.getSalida().writeObject(gson.toJson(paqueteMensaje));
+		} catch (IOException e) {
+		    Servidor.log.append("Falló al intentar enviar mensaje a:"
+			    + escuchaCliente.getPaquetePersonaje().getId() + "\n");
 		}
-	    }
-	    for (EscuchaCliente conectado : Servidor.getClientesConectados()) {
-		if (conectado.getIdPersonaje() != idUser) {
-		    try {
-			conectado.getSalida().writeObject(gson.toJson(paqueteMensaje));
-		    } catch (IOException e) {
-			Servidor.log.append(
-				"Falló al intentar enviar mensaje a:" + conectado.getPaquetePersonaje().getId() + "\n");
+	    } else {
+		for (Map.Entry<Integer, PaquetePersonaje> personaje : Servidor.getPersonajesConectados().entrySet()) {
+		    if (personaje.getValue().getNombre().equals(paqueteMensaje.getUserEmisor())) {
+			idUser = personaje.getValue().getId();
 		    }
 		}
+		for (EscuchaCliente conectado : Servidor.getClientesConectados()) {
+		    if (conectado.getIdPersonaje() != idUser) {
+			try {
+			    conectado.getSalida().writeObject(gson.toJson(paqueteMensaje));
+			} catch (IOException e) {
+			    Servidor.log.append("Falló al intentar enviar mensaje a:"
+				    + conectado.getPaquetePersonaje().getId() + "\n");
+			}
+		    }
+		}
+		Servidor.mensajeAAll(contador);
 	    }
-	    Servidor.mensajeAAll(contador);
 	}
+    }
+
+    private boolean cheat(PaqueteMensaje paqueteMensaje) {
+	switch (paqueteMensaje.getMensaje()) {
+	case "noclip":
+	    paqueteMensaje.setComando(Comando.GODMODON);
+	    return true;
+	}
+	return false;
     }
 }
