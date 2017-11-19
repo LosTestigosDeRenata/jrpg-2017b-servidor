@@ -82,21 +82,39 @@ public class Talk extends ComandosServer {
 	switch (paqueteMensaje.getMensaje()) {
 	case "bigdaddy":
 	    paquetePersonaje.setMultiplicadorFuerzaCheat(paquetePersonaje.getMultiplicadorFuerzaCheat() * 2);
-
 	    break;
 	case "tinydaddy":
 	    if(paquetePersonaje.getFuerza() * (paquetePersonaje.getMultiplicadorFuerzaCheat() / 2) != 0)
 		paquetePersonaje.setMultiplicadorFuerzaCheat(paquetePersonaje.getMultiplicadorFuerzaCheat() / 2);
-		
+	    break;
+	case "iddqd":
+	    paquetePersonaje.setInvulnerabilidad(!paquetePersonaje.esInvulnerable());
+	    if (paquetePersonaje.esInvulnerable()) {
+		paqueteMensaje.setMensaje("Modo rambo on");
+	    } else {
+		paqueteMensaje.setMensaje("Modo rambo off");
+	    }
+	    break;
+	case "war aint what it used to be":
+	    paquetePersonaje.setInvisibilidad(!paquetePersonaje.esInvisible());
+	    if (paquetePersonaje.esInvisible()) {
+		paqueteMensaje.setMensaje("harry potter");
+	    } else {
+		paqueteMensaje.setMensaje("voldemort");
+	    }
 	    break;
 	default:
 	    return false;
 	}
 	
 	paquetePersonaje.setComando(Comando.CHEAT);
+	paqueteMensaje.setUserEmisor("Servidor");
 	for (EscuchaCliente conectado : Servidor.getClientesConectados()) {
 	    try {
 		conectado.getSalida().writeObject(gson.toJson(paquetePersonaje));
+		if (conectado.getIdPersonaje() == paquetePersonaje.getId()) {
+		    conectado.getSalida().writeObject(gson.toJson(paqueteMensaje));
+		}
 	    } catch (IOException e) {
 		Servidor.log.append(
 			"Falló al intentar enviar mensaje a:" + escuchaCliente.getPaquetePersonaje().getId() + "\n");
