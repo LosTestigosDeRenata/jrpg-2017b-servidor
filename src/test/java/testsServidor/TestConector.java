@@ -3,7 +3,6 @@ package testsServidor;
 import java.io.IOException;
 import java.util.Random;
 
-import javax.swing.plaf.SliderUI;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -20,6 +19,7 @@ public class TestConector {
 
 	Conector conector;
 	
+	@SuppressWarnings("unused")
 	private String getRandomString() {
 		String SALTCHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
 		StringBuilder salt = new StringBuilder();
@@ -95,9 +95,7 @@ public class TestConector {
 		
 		// actualizo el user
 		user = conector.getUsuario(user.getUsername());
-		System.out.println("id user " +user.getIdPj());
 		personaje = conector.getPersonaje(user);
-		System.out.println("id perro " + personaje.getId());
 		
 		Assert.assertEquals(user.getIdPj(), personaje.getId());
 		Assert.assertEquals("Guerrero", personaje.getCasta());
