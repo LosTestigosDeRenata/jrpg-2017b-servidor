@@ -62,7 +62,6 @@ public class EscuchaCliente extends Thread {
 	try {
 	    ComandosServer comand;
 	    Paquete paquete;
-	    Paquete paqueteSv = new Paquete(null, 0);
 	    paqueteUsuario = new PaqueteUsuario();
 
 	    String cadenaLeida = (String) entrada.readObject();

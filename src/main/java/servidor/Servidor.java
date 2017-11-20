@@ -102,7 +102,8 @@ public class Servidor extends Thread {
 	botonDetener.setText("Detener");
 	botonDetener.setBounds(360, ALTO - 70, 100, 30);
 	botonDetener.addActionListener(new ActionListener() {
-	    @Override
+	    @SuppressWarnings("deprecation")
+		@Override
 	    public void actionPerformed(final ActionEvent e) {
 		try {
 		    server.stop();
@@ -130,7 +131,8 @@ public class Servidor extends Thread {
 
 	ventana.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 	ventana.addWindowListener(new WindowAdapter() {
-	    @Override
+	    @SuppressWarnings("deprecation")
+		@Override
 	    public void windowClosing(final WindowEvent evt) {
 		if (serverSocket != null) {
 		    try {
@@ -231,7 +233,7 @@ public class Servidor extends Thread {
     public static boolean mensajeAAll(final int contador) {
 
 	boolean result = personajesConectados.size() == contador + 1;
-	System.out.println(personajesConectados.size());
+
 	if (result) {
 	    // inicio
 								  // sesion

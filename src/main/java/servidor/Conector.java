@@ -1,8 +1,7 @@
 package servidor;
 
-import java.io.File;
+
 import java.io.IOException;
-import java.sql.Connection;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.CriteriaUpdate;
@@ -14,10 +13,8 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.criterion.Order;
-import org.hibernate.service.ServiceRegistry;
 
 import contenedores.ContenedorInventario;
 import contenedores.ContenedorItem;
@@ -75,7 +72,8 @@ public class Conector {
 	Transaction tx = session.beginTransaction();
 
 	try {
-	    Criteria c = session.createCriteria(ContenedorPersonaje.class);
+	    @SuppressWarnings("deprecation")
+		Criteria c = session.createCriteria(ContenedorPersonaje.class);
 	    c.addOrder(Order.desc("id"));
 	    c.setMaxResults(1);
 	    int lastId = ((ContenedorPersonaje) c.uniqueResult()).getIdPersonaje();
