@@ -2,8 +2,6 @@ package contenedores;
 
 /**
  * Clase contenedor de la tabla Alumno para hibernate.
- * @author Santi
- *
  */
 public class ContenedorAlumno {
     private int idAlumno;

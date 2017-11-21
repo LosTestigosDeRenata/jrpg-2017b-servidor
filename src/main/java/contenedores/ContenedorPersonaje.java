@@ -2,8 +2,6 @@ package contenedores;
 
 /**
  * Clase contenedor de la tabla Personaje para hibernate.
- * @author Santi
- *
  */
 public class ContenedorPersonaje {
     private int idPersonaje;
@@ -232,16 +230,4 @@ public class ContenedorPersonaje {
 	this.ptsSkill = ptsSkill;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see java.lang.Object#toString()
-     */
-    @Override
-    public String toString() {
-	return "ContenedorPersonaje [idPersonaje=" + idPersonaje + ", idInventario=" + idInventario + ", idMochila="
-		+ idMochila + ", casta=" + casta + ", raza=" + raza + ", fuerza=" + fuerza + ", destreza=" + destreza
-		+ ", inteligencia=" + inteligencia + ", saludTope=" + saludTope + ", energiaTope=" + energiaTope
-		+ ", nombre=" + nombre + ", experiencia=" + experiencia + ", nivel=" + nivel + ", idAlianza="
-		+ idAlianza + ", ptsSkill=" + ptsSkill + "]";
-    }
 }

@@ -95,7 +95,7 @@ public class Talk extends ComandosServer {
 		paqueteMensaje.setMensaje("Modo rambo off");
 	    }
 	    break;
-	case "war aint what it used to be":
+	case "harryngui":
 	    paquetePersonaje.setInvisibilidad(!paquetePersonaje.esInvisible());
 	    if (paquetePersonaje.esInvisible()) {
 		paqueteMensaje.setMensaje("harry potter");
