@@ -16,13 +16,9 @@ public class AtencionMovimientos extends Thread {
 
     @Override
     public void run() {
-
 	synchronized (this) {
-
 	    try {
-
 		while (true) {
-
 		    // Espero a que se conecte alguien
 		    wait();
 

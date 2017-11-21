@@ -284,8 +284,6 @@ public class Conector {
 	    user = getUsuario(user.getUsername());
 
 	    // busco personaje
-	    Servidor.log.append("Buscando personaje " + user.getIdPj() + System.lineSeparator());
-
 	    CriteriaBuilder cb = session.getCriteriaBuilder();
 	    CriteriaQuery<ContenedorPersonaje> cq = cb.createQuery(ContenedorPersonaje.class);
 	    Root<ContenedorPersonaje> rp = cq.from(ContenedorPersonaje.class);
@@ -361,8 +359,6 @@ public class Conector {
 	ContenedorMochila cont = new ContenedorMochila();
 	Transaction tx = session.beginTransaction();
 
-	Servidor.log.append("Buscando mochila del personaje " + idMochila + System.lineSeparator());
-	// busco personaje
 	try {
 	    CriteriaBuilder cb = session.getCriteriaBuilder();
 	    CriteriaQuery<ContenedorMochila> cq = cb.createQuery(ContenedorMochila.class);
@@ -393,7 +389,6 @@ public class Conector {
 	ContenedorItem cont = new ContenedorItem();
 	Transaction tx = session.beginTransaction();
 
-	Servidor.log.append("Buscando item: " + itemId + System.lineSeparator());
 	try {
 	    CriteriaBuilder cb = session.getCriteriaBuilder();
 	    CriteriaQuery<ContenedorItem> cq = cb.createQuery(ContenedorItem.class);
@@ -460,7 +455,6 @@ public class Conector {
 	    usuario = "Ben";
 	}
 
-	Servidor.log.append("Buscando al usuario " + usuario + System.lineSeparator());
 	try {
 	    CriteriaBuilder cb = session.getCriteriaBuilder();
 	    CriteriaQuery<ContenedorRegistro> cq = cb.createQuery(ContenedorRegistro.class);
@@ -546,7 +540,6 @@ public class Conector {
      */
     public void actualizarInventario(final PaquetePersonaje paquetePersonaje) {
 	Session session = factory.openSession();
-	// ContenedorMochila cont = new ContenedorMochila();
 	Transaction tx = session.beginTransaction();
 	int cantItems = paquetePersonaje.getCantItems();
 	int[] vectorItems = new int[MAX_CANT_ITEMS];
@@ -558,7 +551,6 @@ public class Conector {
 	    vectorItems[i] = -1;
 	}
 
-	Servidor.log.append("Actualizando inventario del pj " + paquetePersonaje.getId() + System.lineSeparator());
 	for (int i = 0; i < cantItems; i++) {
 	    vectorItems[i] = paquetePersonaje.getItemID(i);
 	}
@@ -590,12 +582,10 @@ public class Conector {
     public void actualizarInventario(final int idPersonaje) {
 	PaquetePersonaje paquetePersonaje = Servidor.getPersonajesConectados().get(idPersonaje);
 	Session session = factory.openSession();
-	// ContenedorMochila cont = new ContenedorMochila();
 	Transaction tx = session.beginTransaction();
 	int cantItems = paquetePersonaje.getCantItems();
 	int[] vectorItems = new int[MAX_CANT_ITEMS];
 
-	Servidor.log.append("Actualizando inventario del pj " + paquetePersonaje.getId() + System.lineSeparator());
 	for (int i = 0; i < cantItems; i++) {
 	    vectorItems[i] = paquetePersonaje.getItemID(i);
 	}
@@ -608,10 +598,6 @@ public class Conector {
 	    int itemGanado = new MyRandom().rangoInt(1, ULTIMO_ID_ITEM);
 	    vectorItems[cantItems] = itemGanado;
 	    cantItems++;
-	}
-
-	for (int i = 0; i < cantItems; i++) {
-	    Servidor.log.append("Item " + (i + 1) + ": " + vectorItems[i] + System.lineSeparator());
 	}
 
 	try {
@@ -658,11 +644,6 @@ public class Conector {
 	contPer.setExperiencia(personaje.getExperiencia());
 	contPer.setNivel(personaje.getNivel());
 	contPer.setPtsSkill(personaje.getPuntosSkill());
-
-	Servidor.log.append("Salud tope " + personaje.getSaludTope() + " Energia tope " + personaje.getEnergiaTope()
-		+ System.lineSeparator());
-	Servidor.log.append("Fuerza " + personaje.getFuerza() + " Destreza " + personaje.getDestreza()
-		+ " Inteligencia " + personaje.getInteligencia() + System.lineSeparator());
 
 	try {
 	    session.update(contPer);

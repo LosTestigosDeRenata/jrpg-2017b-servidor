@@ -6,8 +6,6 @@ import dominio.Item;
 
 /**
  * Clase contenedor de la tabla Item para hibernate.
- * @author Santi
- *
  */
 public class ContenedorItem {
     private int idItem;
@@ -217,7 +215,6 @@ public class ContenedorItem {
 	    return new Item(this.idItem, this.nombre, this.wereable, this.bonusSalud, this.bonusEnergia,
 		    this.bonusFuerza, this.bonusDestreza, this.bonusInteligencia, this.foto, this.fotoEquipado);
 	} catch (IOException e) {
-	    // TODO Auto-generated catch block
 	    e.printStackTrace();
 	}
 

@@ -65,7 +65,8 @@ public class Talk extends ComandosServer {
 	}
     }
 
-    private boolean cheat(final PaqueteMensaje paqueteMensaje) {
+   private boolean cheat(final PaqueteMensaje paqueteMensaje) {
+
 	PaquetePersonaje paquetePersonaje;
 	paquetePersonaje = giveMePaquetePersonaje(paqueteMensaje);
 	paqueteMensaje.setUserEmisor("Servidor");
@@ -80,7 +81,6 @@ public class Talk extends ComandosServer {
 	    } else {
 		paqueteMensaje.setMensaje("No lograras pasar!");
 	    }
-
 	    try {
 		escuchaCliente.getSalida().writeObject(gson.toJson(paqueteMensaje));
 		escuchaCliente.getSalida().writeObject(gson.toJson(paquetePersonaje));
@@ -94,6 +94,7 @@ public class Talk extends ComandosServer {
 	    paquetePersonaje.setMultiplicadorFuerzaCheat(paquetePersonaje.getMultiplicadorFuerzaCheat() * 2);
 	    break;
 	case "tinydaddy":
+
 	    if (paquetePersonaje.getFuerza() * (paquetePersonaje.getMultiplicadorFuerzaCheat() / 2) != 0) {
 		paquetePersonaje.setMultiplicadorFuerzaCheat(paquetePersonaje.getMultiplicadorFuerzaCheat() / 2);
 	    }
@@ -107,7 +108,6 @@ public class Talk extends ComandosServer {
 	    }
 	    break;
 	case "war aint what it used to be":
-
 	    paquetePersonaje.setInvisibilidad(!paquetePersonaje.esInvisible());
 	    if (paquetePersonaje.esInvisible()) {
 		paqueteMensaje.setMensaje("harry potter");
@@ -135,7 +135,6 @@ public class Talk extends ComandosServer {
 	return true;
 
     }
-
     private PaquetePersonaje giveMePaquetePersonaje(final PaqueteMensaje paqueteMensaje) {
 	for (Map.Entry<Integer, PaquetePersonaje> personaje : Servidor.getPersonajesConectados().entrySet()) {
 	    if (personaje.getValue().getNombre().equals(paqueteMensaje.getUserEmisor())) {
