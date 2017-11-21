@@ -7,6 +7,9 @@ import mensajeria.PaqueteBatalla;
 import servidor.EscuchaCliente;
 import servidor.Servidor;
 
+/**
+ * Clase Batalla Permiete que un usuario guerre con otro o con un NPC
+ */
 public class Batalla extends ComandosServer {
 
     @Override
@@ -17,10 +20,7 @@ public class Batalla extends ComandosServer {
 	Servidor.log.append(escuchaCliente.getPaqueteBatalla().getId() + " quiere batallar con "
 		+ escuchaCliente.getPaqueteBatalla().getIdEnemigo() + System.lineSeparator());
 
-	if (escuchaCliente.getPaqueteBatalla().getIdEnemigo() > 0) // Batalló
-								   // contra
-								   // otro
-								   // personaje
+	if (escuchaCliente.getPaqueteBatalla().getIdEnemigo() > 0) // Permite batallar con otro personaje
 	{
 	    try {
 		// seteo estado de batalla
@@ -60,11 +60,9 @@ public class Batalla extends ComandosServer {
 		Servidor.log.append("Falló al intentar enviar Batalla \n");
 	    }
 	}
-
 	synchronized (Servidor.atencionConexiones) {
 	    Servidor.atencionConexiones.notify();
 	}
-
     }
 
 }

@@ -9,6 +9,10 @@ import mensajeria.PaquetePersonaje;
 import mensajeria.PaqueteUsuario;
 import servidor.Servidor;
 
+
+/**
+ * Clase InicioSecion
+ */
 public class InicioSesion extends ComandosServer {
 
     @Override

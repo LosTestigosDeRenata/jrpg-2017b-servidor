@@ -7,6 +7,10 @@ import mensajeria.PaqueteFinalizarBatalla;
 import servidor.EscuchaCliente;
 import servidor.Servidor;
 
+/**
+ * Clase FinalizarBatalla Se evalua las condiciones tras finalizar un
+ * enfrentamiento
+ */
 public class FinalizarBatalla extends ComandosServer {
 
     @Override

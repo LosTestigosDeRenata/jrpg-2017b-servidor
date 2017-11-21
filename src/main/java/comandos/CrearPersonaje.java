@@ -5,6 +5,9 @@ import java.io.IOException;
 import mensajeria.PaquetePersonaje;
 import servidor.Servidor;
 
+/**
+ * Clase CrearPersonaje genera al personaje en el mapa
+ */
 public class CrearPersonaje extends ComandosServer {
 
     @Override

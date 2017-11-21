@@ -6,6 +6,9 @@ import mensajeria.PaqueteComerciar;
 import servidor.EscuchaCliente;
 import servidor.Servidor;
 
+/**
+ * Clase Trueque :Permite el intercambio de items entre usuarios
+ */
 public class Trueque extends ComandosServer {
 
     @Override

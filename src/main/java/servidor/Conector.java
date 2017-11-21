@@ -27,7 +27,7 @@ import mensajeria.PaqueteUsuario;
 
 /**
  * Clase que se encarga de la conexión entre el servidor y la base de datos.
- * @author Santi
+ * 
  */
 public class Conector {
 

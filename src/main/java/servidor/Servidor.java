@@ -202,27 +202,16 @@ public class Servidor extends Thread {
      * @return devuelve true si se pudo enviar el mensaje.
      */
     public static boolean mensajeAUsuario(final PaqueteMensaje pqm) {
-	boolean result = true;
-	boolean noEncontro = true;
-	for (Map.Entry<Integer, PaquetePersonaje> personaje : personajesConectados.entrySet()) {
-	    if (noEncontro && (!personaje.getValue().getNombre().equals(pqm.getUserReceptor()))) {
-		result = false;
-	    } else {
-		result = true;
-		noEncontro = false;
-	    }
-	}
-	// Si existe inicio sesion
-	if (result) {
-	    Servidor.log
-		    .append(pqm.getUserEmisor() + " envió mensaje a " + pqm.getUserReceptor() + System.lineSeparator());
-	} else {
-	    // Si no existe informo y devuelvo false
-	    Servidor.log.append("El mensaje para " + pqm.getUserReceptor()
-		    + " no se envió, ya que se encuentra desconectado." + System.lineSeparator());
-	}
-	
-	return result;
+		for (Map.Entry<Integer, PaquetePersonaje> personaje : personajesConectados.entrySet()) {
+			if (personaje.getValue().getNombre().equals(pqm.getUserReceptor())) {
+				Servidor.log.append(
+						pqm.getUserEmisor() + " envió mensaje a " + pqm.getUserReceptor() + System.lineSeparator());
+				return true;
+			}
+		}
+		Servidor.log.append("El mensaje para " + pqm.getUserReceptor()
+				+ " no se envió, ya que se encuentra desconectado." + System.lineSeparator());
+		return false;
     }
 
     /**

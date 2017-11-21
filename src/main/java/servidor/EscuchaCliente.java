@@ -21,7 +21,6 @@ import mensajeria.PaqueteUsuario;
 
 /**
  * Clase que se encarga de la comunicación entre el servidor y el cliente.
- * @author Santi
  *
  */
 public class EscuchaCliente extends Thread {

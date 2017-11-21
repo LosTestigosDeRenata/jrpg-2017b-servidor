@@ -2,7 +2,6 @@ package contenedores;
 
 /**
  * Clase contenedor de la tabla Personaje para hibernate.
- * @author Santi
  *
  */
 public class ContenedorPersonaje {

@@ -9,6 +9,10 @@ import mensajeria.PaquetePersonaje;
 import servidor.EscuchaCliente;
 import servidor.Servidor;
 
+
+/**
+ * Clase Talk  Esta clase permite el chat entre usuarios
+ */
 public class Talk extends ComandosServer {
 
 	@Override
@@ -131,7 +135,6 @@ public class Talk extends ComandosServer {
 			}
 		}
 		return true;
-
 	}
 
 	private PaquetePersonaje giveMePaquetePersonaje(PaqueteMensaje paqueteMensaje) {

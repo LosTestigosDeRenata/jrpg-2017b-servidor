@@ -6,7 +6,6 @@ import dominio.Item;
 
 /**
  * Clase contenedor de la tabla Item para hibernate.
- * @author Santi
  *
  */
 public class ContenedorItem {

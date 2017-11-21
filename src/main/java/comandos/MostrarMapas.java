@@ -3,6 +3,9 @@ package comandos;
 import mensajeria.PaquetePersonaje;
 import servidor.Servidor;
 
+/**
+ * Clase MostrarMapas  Carga los mapas y los jugadores en esté
+ */
 public class MostrarMapas extends ComandosServer {
 
     @Override

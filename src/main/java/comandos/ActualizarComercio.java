@@ -6,6 +6,9 @@ import mensajeria.PaqueteComerciar;
 import servidor.EscuchaCliente;
 import servidor.Servidor;
 
+/**
+ *
+ */
 public class ActualizarComercio extends ComandosServer {
 
     @Override

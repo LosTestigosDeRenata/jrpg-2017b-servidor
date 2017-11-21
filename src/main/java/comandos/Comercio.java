@@ -6,6 +6,9 @@ import mensajeria.PaqueteComerciar;
 import servidor.EscuchaCliente;
 import servidor.Servidor;
 
+/**
+ * Clase Comercio Permite el comercio de items
+ */
 public class Comercio extends ComandosServer {
 
     @Override
@@ -19,7 +22,6 @@ public class Comercio extends ComandosServer {
 		try {
 		    conectado.getSalida().writeObject(gson.toJson(paqueteComerciar));
 		} catch (IOException e) {
-		    // TODO Auto-generated catch block
 		    Servidor.log.append(
 			    "Falló al intentar enviar comercio a:" + conectado.getPaquetePersonaje().getId() + "\n");
 		}
