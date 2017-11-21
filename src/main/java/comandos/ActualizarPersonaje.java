@@ -6,6 +6,10 @@ import mensajeria.PaquetePersonaje;
 import servidor.EscuchaCliente;
 import servidor.Servidor;
 
+/**
+ *Clase Actualizar Personaje 
+ *
+ */
 public class ActualizarPersonaje extends ComandosServer {
 
     @Override

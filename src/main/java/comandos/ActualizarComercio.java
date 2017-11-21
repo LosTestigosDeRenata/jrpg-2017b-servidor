@@ -7,7 +7,7 @@ import servidor.EscuchaCliente;
 import servidor.Servidor;
 
 /**
- *
+ *Clase Actualizar Comercio
  */
 public class ActualizarComercio extends ComandosServer {
 
