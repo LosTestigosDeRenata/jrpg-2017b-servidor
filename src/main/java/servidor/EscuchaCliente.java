@@ -22,7 +22,6 @@ import mensajeria.PaqueteUsuario;
 /**
  * Clase que se encarga de la comunicación entre el servidor y el cliente.
  * @author Santi
- *
  */
 public class EscuchaCliente extends Thread {
 
@@ -49,8 +48,8 @@ public class EscuchaCliente extends Thread {
      * @param salida Buffer de salida.
      * @throws IOException
      */
-    public EscuchaCliente(final String ip, final Socket socket, final ObjectInputStream entrada, final ObjectOutputStream salida)
-	    throws IOException {
+    public EscuchaCliente(final String ip, final Socket socket, final ObjectInputStream entrada,
+	    final ObjectOutputStream salida) throws IOException {
 	this.socket = socket;
 	this.entrada = entrada;
 	this.salida = salida;
@@ -100,168 +99,168 @@ public class EscuchaCliente extends Thread {
      * @return the idPersonaje
      */
     public int getIdPersonaje() {
-        return idPersonaje;
+	return idPersonaje;
     }
 
     /**
      * @param idPersonaje the idPersonaje to set
      */
     public void setIdPersonaje(final int idPersonaje) {
-        this.idPersonaje = idPersonaje;
+	this.idPersonaje = idPersonaje;
     }
 
     /**
      * @return the paquetePersonaje
      */
     public PaquetePersonaje getPaquetePersonaje() {
-        return paquetePersonaje;
+	return paquetePersonaje;
     }
 
     /**
      * @param paquetePersonaje the paquetePersonaje to set
      */
     public void setPaquetePersonaje(final PaquetePersonaje paquetePersonaje) {
-        this.paquetePersonaje = paquetePersonaje;
+	this.paquetePersonaje = paquetePersonaje;
     }
 
     /**
      * @return the paqueteMovimiento
      */
     public PaqueteMovimiento getPaqueteMovimiento() {
-        return paqueteMovimiento;
+	return paqueteMovimiento;
     }
 
     /**
      * @param paqueteMovimiento the paqueteMovimiento to set
      */
     public void setPaqueteMovimiento(final PaqueteMovimiento paqueteMovimiento) {
-        this.paqueteMovimiento = paqueteMovimiento;
+	this.paqueteMovimiento = paqueteMovimiento;
     }
 
     /**
      * @return the paqueteBatalla
      */
     public PaqueteBatalla getPaqueteBatalla() {
-        return paqueteBatalla;
+	return paqueteBatalla;
     }
 
     /**
      * @param paqueteBatalla the paqueteBatalla to set
      */
     public void setPaqueteBatalla(final PaqueteBatalla paqueteBatalla) {
-        this.paqueteBatalla = paqueteBatalla;
+	this.paqueteBatalla = paqueteBatalla;
     }
 
     /**
      * @return the paqueteAtacar
      */
     public PaqueteAtacar getPaqueteAtacar() {
-        return paqueteAtacar;
+	return paqueteAtacar;
     }
 
     /**
      * @param paqueteAtacar the paqueteAtacar to set
      */
     public void setPaqueteAtacar(final PaqueteAtacar paqueteAtacar) {
-        this.paqueteAtacar = paqueteAtacar;
+	this.paqueteAtacar = paqueteAtacar;
     }
 
     /**
      * @return the paqueteFinalizarBatalla
      */
     public PaqueteFinalizarBatalla getPaqueteFinalizarBatalla() {
-        return paqueteFinalizarBatalla;
+	return paqueteFinalizarBatalla;
     }
 
     /**
      * @param paqueteFinalizarBatalla the paqueteFinalizarBatalla to set
      */
     public void setPaqueteFinalizarBatalla(final PaqueteFinalizarBatalla paqueteFinalizarBatalla) {
-        this.paqueteFinalizarBatalla = paqueteFinalizarBatalla;
+	this.paqueteFinalizarBatalla = paqueteFinalizarBatalla;
     }
 
     /**
      * @return the paqueteUsuario
      */
     public PaqueteUsuario getPaqueteUsuario() {
-        return paqueteUsuario;
+	return paqueteUsuario;
     }
 
     /**
      * @param paqueteUsuario the paqueteUsuario to set
      */
     public void setPaqueteUsuario(final PaqueteUsuario paqueteUsuario) {
-        this.paqueteUsuario = paqueteUsuario;
+	this.paqueteUsuario = paqueteUsuario;
     }
 
     /**
      * @return the paqueteDeMovimiento
      */
     public PaqueteDeMovimientos getPaqueteDeMovimiento() {
-        return paqueteDeMovimiento;
+	return paqueteDeMovimiento;
     }
 
     /**
      * @param paqueteDeMovimiento the paqueteDeMovimiento to set
      */
     public void setPaqueteDeMovimiento(final PaqueteDeMovimientos paqueteDeMovimiento) {
-        this.paqueteDeMovimiento = paqueteDeMovimiento;
+	this.paqueteDeMovimiento = paqueteDeMovimiento;
     }
 
     /**
      * @return the paqueteDePersonajes
      */
     public PaqueteDePersonajes getPaqueteDePersonajes() {
-        return paqueteDePersonajes;
+	return paqueteDePersonajes;
     }
 
     /**
      * @param paqueteDePersonajes the paqueteDePersonajes to set
      */
     public void setPaqueteDePersonajes(final PaqueteDePersonajes paqueteDePersonajes) {
-        this.paqueteDePersonajes = paqueteDePersonajes;
+	this.paqueteDePersonajes = paqueteDePersonajes;
     }
 
     /**
      * @return the paqueteDeNpcs
      */
     public PaqueteDeNpcs getPaqueteDeNpcs() {
-        return paqueteDeNpcs;
+	return paqueteDeNpcs;
     }
 
     /**
      * @param paqueteDeNpcs the paqueteDeNpcs to set
      */
     public void setPaqueteDeNpcs(final PaqueteDeNpcs paqueteDeNpcs) {
-        this.paqueteDeNpcs = paqueteDeNpcs;
+	this.paqueteDeNpcs = paqueteDeNpcs;
     }
 
     /**
      * @return the socket
      */
     public Socket getSocket() {
-        return socket;
+	return socket;
     }
 
     /**
      * @return the entrada
      */
     public ObjectInputStream getEntrada() {
-        return entrada;
+	return entrada;
     }
 
     /**
      * @return the salida
      */
     public ObjectOutputStream getSalida() {
-        return salida;
+	return salida;
     }
 
     /**
      * @return the gson
      */
     public Gson getGson() {
-        return gson;
+	return gson;
     }
 
 }

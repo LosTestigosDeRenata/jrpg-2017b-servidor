@@ -65,7 +65,8 @@ public class Talk extends ComandosServer {
 	}
     }
 
-    private boolean cheat(PaqueteMensaje paqueteMensaje) {
+   private boolean cheat(final PaqueteMensaje paqueteMensaje) {
+
 	PaquetePersonaje paquetePersonaje;
 	paquetePersonaje = giveMePaquetePersonaje(paqueteMensaje);
 	paqueteMensaje.setUserEmisor("Servidor");
@@ -75,11 +76,11 @@ public class Talk extends ComandosServer {
 	    paquetePersonaje.setComando(Comando.NOWALL);
 	    paquetePersonaje.setNoclipActivado(!paquetePersonaje.isNoclipActivado());
 
-	    if (paquetePersonaje.isNoclipActivado())
+	    if (paquetePersonaje.isNoclipActivado()) {
 		paqueteMensaje.setMensaje("A atravesar weas!");
-	    else
+	    } else {
 		paqueteMensaje.setMensaje("No lograras pasar!");
-
+	    }
 	    try {
 		escuchaCliente.getSalida().writeObject(gson.toJson(paqueteMensaje));
 		escuchaCliente.getSalida().writeObject(gson.toJson(paquetePersonaje));
@@ -93,8 +94,10 @@ public class Talk extends ComandosServer {
 	    paquetePersonaje.setMultiplicadorFuerzaCheat(paquetePersonaje.getMultiplicadorFuerzaCheat() * 2);
 	    break;
 	case "tinydaddy":
-	    if (paquetePersonaje.getFuerza() * (paquetePersonaje.getMultiplicadorFuerzaCheat() / 2) != 0)
+
+	    if (paquetePersonaje.getFuerza() * (paquetePersonaje.getMultiplicadorFuerzaCheat() / 2) != 0) {
 		paquetePersonaje.setMultiplicadorFuerzaCheat(paquetePersonaje.getMultiplicadorFuerzaCheat() / 2);
+	    }
 	    break;
 	case "iddqd":
 	    paquetePersonaje.setInvulnerabilidad(!paquetePersonaje.esInvulnerable());
@@ -132,8 +135,7 @@ public class Talk extends ComandosServer {
 	return true;
 
     }
-
-    private PaquetePersonaje giveMePaquetePersonaje(PaqueteMensaje paqueteMensaje) {
+    private PaquetePersonaje giveMePaquetePersonaje(final PaqueteMensaje paqueteMensaje) {
 	for (Map.Entry<Integer, PaquetePersonaje> personaje : Servidor.getPersonajesConectados().entrySet()) {
 	    if (personaje.getValue().getNombre().equals(paqueteMensaje.getUserEmisor())) {
 		return personaje.getValue();

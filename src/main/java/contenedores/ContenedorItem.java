@@ -44,7 +44,7 @@ public class ContenedorItem {
     }
 
     /**
-     * @param nomre the nomre to set
+     * @param nombre the nombre to set
      */
     public void setNombre(final String nombre) {
 	this.nombre = nombre;
