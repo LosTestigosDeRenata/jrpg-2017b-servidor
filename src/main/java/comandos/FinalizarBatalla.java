@@ -22,10 +22,7 @@ public class FinalizarBatalla extends ComandosServer {
 	Servidor.getPersonajesConectados().get(escuchaCliente.getPaqueteFinalizarBatalla().getId())
 		.setEstado(Estado.getEstadoJuego());
 
-	if (escuchaCliente.getPaqueteFinalizarBatalla().getIdEnemigo() > 0) // Batalló
-									    // contra
-									    // otro
-									    // personaje
+	if (escuchaCliente.getPaqueteFinalizarBatalla().getIdEnemigo() > 0) // Batalló contra otro personaje
 	{
 	    Servidor.getConector().actualizarInventario(paqueteFinalizarBatalla.getGanadorBatalla());
 	    Servidor.getPersonajesConectados().get(escuchaCliente.getPaqueteFinalizarBatalla().getIdEnemigo())
@@ -36,14 +33,12 @@ public class FinalizarBatalla extends ComandosServer {
 		    try {
 			conectado.getSalida().writeObject(gson.toJson(escuchaCliente.getPaqueteFinalizarBatalla()));
 		    } catch (IOException e) {
-			// TODO Auto-generated catch block
 			Servidor.log.append("Falló al intentar enviar finalizarBatalla a:"
 				+ conectado.getPaquetePersonaje().getId() + "\n");
 		    }
 		}
 	    }
-	} else // Batalló contra un npc
-	{
+	} else { // Batalló contra un npc
 	    int idNpc = escuchaCliente.getPaqueteFinalizarBatalla().getIdEnemigo() * -1;
 
 	    // Si el personaje ganó, le doy un item y saco al infeliz del

@@ -20,7 +20,7 @@ public class Batalla extends ComandosServer {
 	Servidor.log.append(escuchaCliente.getPaqueteBatalla().getId() + " quiere batallar con "
 		+ escuchaCliente.getPaqueteBatalla().getIdEnemigo() + System.lineSeparator());
 
-	if (escuchaCliente.getPaqueteBatalla().getIdEnemigo() > 0) // Permite batallar con otro personaje
+	if (escuchaCliente.getPaqueteBatalla().getIdEnemigo() > 0) // Batalló contra otro personaje
 	{
 	    try {
 		// seteo estado de batalla
@@ -44,14 +44,14 @@ public class Batalla extends ComandosServer {
 	    } catch (IOException e) {
 		Servidor.log.append("Falló al intentar enviar Batalla \n");
 	    }
-	} else // Batalló contra un NPC
-	{
+	} else { // Batalló contra un NPC
 	    try {
 		// seteo estado de batalla
 		Servidor.getPersonajesConectados().get(escuchaCliente.getPaqueteBatalla().getId())
 			.setEstado(Estado.getEstadoBatallaNpc());
 		Servidor.getPaqueteDeNpcs().getPaquetesNpcs()
-			.get(escuchaCliente.getPaqueteBatalla().getIdEnemigo() * -1).setEstado(Estado.getEstadoBatallaNpc());
+			.get(escuchaCliente.getPaqueteBatalla().getIdEnemigo() * -1)
+			.setEstado(Estado.getEstadoBatallaNpc());
 
 		for (EscuchaCliente conectado : Servidor.getClientesConectados()) {
 		    conectado.getSalida().writeObject(gson.toJson(escuchaCliente.getPaqueteBatalla()));

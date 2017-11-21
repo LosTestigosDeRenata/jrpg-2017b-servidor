@@ -44,7 +44,21 @@ public class Servidor extends Thread {
     private static final int ANCHO = 700;
     private static final int ALTO = 640;
     private static final int ALTO_LOG = 520;
-    private static final int ANCHO_LOG = ANCHO - 25;
+    private static final int CORRIMIENTO = 25;
+    private static final int ANCHO_LOG = ANCHO - CORRIMIENTO;
+    private static final int TAM_LETRA_LABEL = 16;
+    private static final int POSX = 10;
+    private static final int POSY = 0;
+    private static final int ANCHO_LABEL = 200;
+    private static final int ALTO_LABEL = 30;
+    private static final int TAM_LETRA_TEXAREA = 13;
+    private static final int POSYTA = 40;
+    private static final int POSX_BOTON = 220;
+    private static final int CORRIMIENTO_BOTON = 70;
+    private static final int POSY_BOTON = ALTO - CORRIMIENTO_BOTON;
+    private static final int ANCHO_BOTON = 100;
+    private static final int ALTO_BOTON = 30;
+    private static final int POSX_BOTON2 = 360;
 
     public static JTextArea log;
 
@@ -71,22 +85,22 @@ public class Servidor extends Thread {
 	ventana.setLayout(null);
 	ventana.setIconImage(Toolkit.getDefaultToolkit().getImage("src/main/java/servidor/server.png"));
 	JLabel titulo = new JLabel("Log del servidor...");
-	titulo.setFont(new Font("Courier New", Font.BOLD, 16));
-	titulo.setBounds(10, 0, 200, 30);
+	titulo.setFont(new Font("Courier New", Font.BOLD, TAM_LETRA_LABEL));
+	titulo.setBounds(POSX, POSY, ANCHO_LABEL, ALTO_LABEL);
 	ventana.add(titulo);
 
 	log = new JTextArea();
 	log.setEditable(false);
-	log.setFont(new Font("Times New Roman", Font.PLAIN, 13));
+	log.setFont(new Font("Times New Roman", Font.PLAIN, TAM_LETRA_TEXAREA));
 	JScrollPane scroll = new JScrollPane(log, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
 		ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-	scroll.setBounds(10, 40, ANCHO_LOG, ALTO_LOG);
+	scroll.setBounds(POSX, POSYTA, ANCHO_LOG, ALTO_LOG);
 	ventana.add(scroll);
 
 	final JButton botonIniciar = new JButton();
 	final JButton botonDetener = new JButton();
 	botonIniciar.setText("Iniciar");
-	botonIniciar.setBounds(220, ALTO - 70, 100, 30);
+	botonIniciar.setBounds(POSX_BOTON, POSY_BOTON, ANCHO_BOTON, ALTO_BOTON);
 	botonIniciar.addActionListener(new ActionListener() {
 	    @Override
 	    public void actionPerformed(final ActionEvent e) {
@@ -100,7 +114,7 @@ public class Servidor extends Thread {
 	ventana.add(botonIniciar);
 
 	botonDetener.setText("Detener");
-	botonDetener.setBounds(360, ALTO - 70, 100, 30);
+	botonDetener.setBounds(POSX_BOTON2, POSY_BOTON, ANCHO_BOTON, ALTO_BOTON);
 	botonDetener.addActionListener(new ActionListener() {
 	    @SuppressWarnings("deprecation")
 		@Override
@@ -215,9 +229,9 @@ public class Servidor extends Thread {
     }
 
     /**
-     * Método sin implementar.
+     * Loguea en el server si se pudo mandar o no el mensaje
      * @param contador
-     * @return
+     * @return result
      */
     public static boolean mensajeAAll(final int contador) {
 

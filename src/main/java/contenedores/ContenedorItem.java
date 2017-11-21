@@ -45,7 +45,7 @@ public class ContenedorItem {
     }
 
     /**
-     * @param nomre the nomre to set
+     * @param nombre the nombre to set
      */
     public void setNombre(final String nombre) {
 	this.nombre = nombre;
@@ -216,7 +216,6 @@ public class ContenedorItem {
 	    return new Item(this.idItem, this.nombre, this.wereable, this.bonusSalud, this.bonusEnergia,
 		    this.bonusFuerza, this.bonusDestreza, this.bonusInteligencia, this.foto, this.fotoEquipado);
 	} catch (IOException e) {
-	    // TODO Auto-generated catch block
 	    e.printStackTrace();
 	}
 
