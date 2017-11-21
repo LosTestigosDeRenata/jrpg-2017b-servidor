@@ -41,11 +41,11 @@ public class Conector {
      */
     public void connect() {
 	Servidor.log.append("Estableciendo conexión con la base de datos..." + System.lineSeparator());
-	
+
 	Configuration cfg = new Configuration();
 	cfg.configure("hibernate.cfg.xml");
 	factory = cfg.buildSessionFactory();
-	
+
 	Servidor.log.append("Conexión con la base de datos establecida con éxito." + System.lineSeparator());
     }
 
@@ -267,9 +267,9 @@ public class Conector {
 
     /**
      * Trae un personaje de la base de datos.
+     * @throws IOException
      * @param user Usuario al que le pertenece el personaje.
      * @return devuelve un PaquetePersonaje con los datos cargados.
-     * @throws IOException
      */
     public PaquetePersonaje getPersonaje(PaqueteUsuario user) throws IOException {
 	PaquetePersonaje paquete = new PaquetePersonaje();

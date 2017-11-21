@@ -106,7 +106,7 @@ public class ContenedorInventario {
     }
 
     /**
-     * @param accesorio the accesoria to set
+     * @param accesoria the accesorio to set
      */
     public void setAccesorio(final int accesoria) {
 	this.accesorio = accesoria;
