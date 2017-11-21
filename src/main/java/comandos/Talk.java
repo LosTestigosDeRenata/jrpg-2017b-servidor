@@ -67,24 +67,33 @@ public class Talk extends ComandosServer {
 
     private boolean cheat(PaqueteMensaje paqueteMensaje) {
 	PaquetePersonaje paquetePersonaje;
-	if (paqueteMensaje.getMensaje().equals("noclip")) {
-	    paqueteMensaje.setComando(Comando.NOWALL);
+	paquetePersonaje = giveMePaquetePersonaje(paqueteMensaje);
+	paqueteMensaje.setUserEmisor("Servidor");
+
+	switch (paqueteMensaje.getMensaje()) {
+	case "noclip":
+	    paquetePersonaje.setComando(Comando.NOWALL);
+	    paquetePersonaje.setNoclipActivado(!paquetePersonaje.isNoclipActivado());
+
+	    if (paquetePersonaje.isNoclipActivado())
+		paqueteMensaje.setMensaje("A atravesar weas!");
+	    else
+		paqueteMensaje.setMensaje("No lograras pasar!");
+
 	    try {
 		escuchaCliente.getSalida().writeObject(gson.toJson(paqueteMensaje));
+		escuchaCliente.getSalida().writeObject(gson.toJson(paquetePersonaje));
 	    } catch (IOException e) {
 		Servidor.log.append(
 			"Falló al intentar enviar mensaje a:" + escuchaCliente.getPaquetePersonaje().getId() + "\n");
 	    }
+	    // Finaliza el metodo para no reenviar el paquete a todos
 	    return true;
-	}
-	paquetePersonaje = giveMePaquetePersonaje(paqueteMensaje);
-	
-	switch (paqueteMensaje.getMensaje()) {
 	case "bigdaddy":
 	    paquetePersonaje.setMultiplicadorFuerzaCheat(paquetePersonaje.getMultiplicadorFuerzaCheat() * 2);
 	    break;
 	case "tinydaddy":
-	    if(paquetePersonaje.getFuerza() * (paquetePersonaje.getMultiplicadorFuerzaCheat() / 2) != 0)
+	    if (paquetePersonaje.getFuerza() * (paquetePersonaje.getMultiplicadorFuerzaCheat() / 2) != 0)
 		paquetePersonaje.setMultiplicadorFuerzaCheat(paquetePersonaje.getMultiplicadorFuerzaCheat() / 2);
 	    break;
 	case "iddqd":
@@ -95,7 +104,7 @@ public class Talk extends ComandosServer {
 		paqueteMensaje.setMensaje("Modo rambo off");
 	    }
 	    break;
-	case "harryngui":
+	case "war aint what it used to be":
 	    paquetePersonaje.setInvisibilidad(!paquetePersonaje.esInvisible());
 	    if (paquetePersonaje.esInvisible()) {
 		paqueteMensaje.setMensaje("harry potter");
@@ -106,9 +115,9 @@ public class Talk extends ComandosServer {
 	default:
 	    return false;
 	}
-	
+
 	paquetePersonaje.setComando(Comando.CHEAT);
-	paqueteMensaje.setUserEmisor("Servidor");
+
 	for (EscuchaCliente conectado : Servidor.getClientesConectados()) {
 	    try {
 		conectado.getSalida().writeObject(gson.toJson(paquetePersonaje));

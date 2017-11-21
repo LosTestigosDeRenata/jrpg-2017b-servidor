@@ -7,7 +7,8 @@ import servidor.Servidor;
 
 public class Salir extends ComandosServer {
 
-    @Override
+    @SuppressWarnings("unlikely-arg-type")
+	@Override
     public void ejecutar() {
 	// Cierro todo
 	try {
