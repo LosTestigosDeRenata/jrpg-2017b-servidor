@@ -16,6 +16,7 @@ import mensajeria.PaqueteDeNpcs;
 import mensajeria.PaqueteDePersonajes;
 import mensajeria.PaqueteFinalizarBatalla;
 import mensajeria.PaqueteMovimiento;
+import mensajeria.PaquetePelear;
 import mensajeria.PaquetePersonaje;
 import mensajeria.PaqueteUsuario;
 
@@ -40,6 +41,7 @@ public class EscuchaCliente extends Thread {
     private PaqueteDeMovimientos paqueteDeMovimiento;
     private PaqueteDePersonajes paqueteDePersonajes;
     private PaqueteDeNpcs paqueteDeNpcs;
+    private PaquetePelear paquetePelear;
 
     /**
      * @param ip IP del servidor.
@@ -234,6 +236,14 @@ public class EscuchaCliente extends Thread {
     public void setPaqueteDeNpcs(final PaqueteDeNpcs paqueteDeNpcs) {
 	this.paqueteDeNpcs = paqueteDeNpcs;
     }
+    
+    public PaquetePelear getPaquetePelear() {
+		return paquetePelear;
+	}
+
+	public void setPaquetePelear(PaquetePelear paquetePelear) {
+		this.paquetePelear = paquetePelear;
+	}
 
     /**
      * @return the socket
