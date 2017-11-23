@@ -20,36 +20,12 @@ import servidor.Servidor;
  * Clase Atacar Se evalua la condicion necesaria para pelear
  */
 public class Atacar extends ComandosServer {
-
-	/*@Override
-	public void ejecutar() {
-		escuchaCliente.setPaqueteAtacar((PaqueteAtacar) gson.fromJson(cadenaLeida, PaqueteAtacar.class));
-		for(EscuchaCliente conectado : Servidor.getClientesConectados()) {
-			if(conectado.getIdPersonaje() == escuchaCliente.getPaqueteAtacar().getIdEnemigo()) {
-				try {
-					conectado.getSalida().writeObject(gson.toJson(escuchaCliente.getPaqueteAtacar()));
-				} catch (IOException e) {
-					Servidor.log.append("Falló al intentar enviar ataque a:" + conectado.getPaquetePersonaje().getId() + "\n");
-				}
-			}
-		}
-
-	}*/
 	
 	@Override
 	public void ejecutar()
 	{
 		System.out.println("Hola");		
 		escuchaCliente.setPaquetePelear((PaquetePelear)gson.fromJson(cadenaLeida, PaquetePelear.class));
-		
-		/*
-		Gson gson = new GsonBuilder().registerTypeAdapter(Personaje.class, new PersonajeJsonDeserializador()).create();
-		Type type = new TypeToken<Personaje>(){}.getType();
-		Personaje p = gson.fromJson(cadenaLeida, type);
-		*/		
-		
-		//Personaje personaje = escuchaCliente.getPaquetePelear().getPersonaje();
-		//Personaje enemigo = escuchaCliente.getPaquetePelear().getEnemigo();
 		
 		Personaje personaje = null; // Atacante. //
 		Personaje enemigo = null;
@@ -128,7 +104,7 @@ public class Atacar extends ComandosServer {
 		String accion = escuchaCliente.getPaquetePelear().getAccion();
 		
 		
-		switch(accion)
+		switch(accion) // Ya sé que a Lucas no le gustan los switch's pero es lo que hay por ahora jaja. //
 		{
 			case "hr1":
 				System.out.println(personaje.habilidadRaza1(enemigo));				
@@ -203,45 +179,7 @@ public class Atacar extends ComandosServer {
 		enviarPersonajeEnemigo.add(String.valueOf(enemigo.getEnergiaTope()));
 		
 		enviarAAtacante = new PaquetePelear(enviarPersonajeAtacante, enviarPersonajeEnemigo, enviarCastaAtacante, enviarCastaEnemigo, null);
-		enviarAAtacado = new PaquetePelear(Comando.ATACADO, enviarPersonajeAtacante, enviarPersonajeEnemigo, enviarCastaAtacante, enviarCastaEnemigo, null);
-		
-		
-		
-		/*
-		enviarAAtacante = new PaquetePelear((Humano)personaje); //Por defecto son Humanos. En caso que no, los if's de abajo los cambiaran. //
-		enviarAAtacado = new PaquetePelear((Humano)personaje);
-		if(personaje instanceof Orco)
-		{
-			enviarAAtacante = new PaquetePelear((Orco)personaje);
-			enviarAAtacado = new PaquetePelear((Orco)personaje);
-		}
-		if(personaje instanceof Elfo)
-		{
-			enviarAAtacante = new PaquetePelear((Elfo)personaje);
-			enviarAAtacado = new PaquetePelear((Elfo)personaje);
-		}
-		
-		
-		enviarAAtacante.setEnemigo((Humano)enemigo);
-		enviarAAtacado.setEnemigo((Humano)enemigo);
-		if(enemigo instanceof Orco)
-		{
-			enviarAAtacante.setEnemigo((Orco)enemigo);
-			enviarAAtacado = new PaquetePelear((Orco)enemigo);
-		}
-		if(enemigo instanceof Elfo)
-		{
-			enviarAAtacante.setEnemigo((Elfo)enemigo);
-			enviarAAtacado = new PaquetePelear((Elfo)enemigo);
-		}
-		*/
-		
-		
-		/*
-		PaquetePelear enviarAAtacante = new PaquetePelear(personaje, enemigo, null); // La "accion" no me interesa porque en este momento ya hice pelear a los peleadores y por lo tanto no hay una nueva "accion". //
-		PaquetePelear enviarAAtacado = new PaquetePelear(Comando.ATACADO, personaje, enemigo, null); // Idem al comentario de arriba pero para el atacado (o enemigo). //
-		*/
-		
+		enviarAAtacado = new PaquetePelear(Comando.ATACADO, enviarPersonajeAtacante, enviarPersonajeEnemigo, enviarCastaAtacante, enviarCastaEnemigo, null);		
 		
 		
 		System.out.println("Salud personaje: "+ personaje.getNombre() + " es " + personaje.getSalud());
@@ -251,7 +189,6 @@ public class Atacar extends ComandosServer {
 		
 		
 		for(EscuchaCliente conectado : Servidor.getClientesConectados()) {
-			//if(conectado.getIdPersonaje() == escuchaCliente.getPaquetePelear().getPersonaje().getIdPersonaje()) {
 			if(conectado.getIdPersonaje() == personaje.getIdPersonaje()) {
 				try {
 					conectado.getSalida().writeObject(gson.toJson(enviarAAtacante));
@@ -260,7 +197,6 @@ public class Atacar extends ComandosServer {
 				}
 			}
 			
-			//if(conectado.getIdPersonaje() == escuchaCliente.getPaquetePelear().getEnemigo().getIdPersonaje()) {
 			if(conectado.getIdPersonaje() == enemigo.getIdPersonaje()) {
 				try {
 					conectado.getSalida().writeObject(gson.toJson(enviarAAtacado));
