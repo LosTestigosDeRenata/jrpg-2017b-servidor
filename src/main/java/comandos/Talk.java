@@ -73,13 +73,13 @@ public class Talk extends ComandosServer {
 
 	PaquetePersonaje paquetePersonaje;
 	paquetePersonaje = giveMePaquetePersonaje(paqueteMensaje);
-	paqueteMensaje.setUserEmisor("Servidor");
 
 	switch (paqueteMensaje.getMensaje()) {
 	case "noclip":
 	    paquetePersonaje.setComando(Comando.NOWALL);
 	    paquetePersonaje.setNoclipActivado(!paquetePersonaje.isNoclipActivado());
-
+	    paqueteMensaje.setUserEmisor("Servidor");
+	    
 	    if (paquetePersonaje.isNoclipActivado()) {
 		paqueteMensaje.setMensaje("A atravesar weas!");
 	    } else {
@@ -98,7 +98,6 @@ public class Talk extends ComandosServer {
 	    paquetePersonaje.setMultiplicadorFuerzaCheat(paquetePersonaje.getMultiplicadorFuerzaCheat() * 2);
 	    break;
 	case "tinydaddy":
-
 	    if (paquetePersonaje.getFuerza() * (paquetePersonaje.getMultiplicadorFuerzaCheat() / 2) != 0) {
 		paquetePersonaje.setMultiplicadorFuerzaCheat(paquetePersonaje.getMultiplicadorFuerzaCheat() / 2);
 	    }
@@ -123,8 +122,10 @@ public class Talk extends ComandosServer {
 	    return false;
 	}
 
+	Servidor.log.append("entré\n");
 	paquetePersonaje.setComando(Comando.CHEAT);
-
+	paqueteMensaje.setUserEmisor("Servidor");
+	
 	for (EscuchaCliente conectado : Servidor.getClientesConectados()) {
 	    try {
 		conectado.getSalida().writeObject(gson.toJson(paquetePersonaje));
@@ -137,8 +138,8 @@ public class Talk extends ComandosServer {
 	    }
 	}
 	return true;
-
     }
+   
     private PaquetePersonaje giveMePaquetePersonaje(final PaqueteMensaje paqueteMensaje) {
 	for (Map.Entry<Integer, PaquetePersonaje> personaje : Servidor.getPersonajesConectados().entrySet()) {
 	    if (personaje.getValue().getNombre().equals(paqueteMensaje.getUserEmisor())) {
