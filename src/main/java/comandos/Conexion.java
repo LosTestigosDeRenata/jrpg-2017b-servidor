@@ -4,10 +4,8 @@ import mensajeria.PaqueteMovimiento;
 import mensajeria.PaquetePersonaje;
 import servidor.Servidor;
 
-
 /**
  * Clase Conexion
- *
  */
 public class Conexion extends ComandosServer {
 

@@ -35,7 +35,7 @@ public class Atacar extends ComandosServer {
 
     @Override
     public void ejecutar() {
-	escuchaCliente.setPaquetePelear((PaquetePelear) gson.fromJson(cadenaLeida, PaquetePelear.class));
+	escuchaCliente.setPaquetePelear(gson.fromJson(cadenaLeida, PaquetePelear.class));
 
 	Personaje personaje = null; // Atacante. //
 	Personaje enemigo = null;

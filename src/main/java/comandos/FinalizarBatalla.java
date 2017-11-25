@@ -16,14 +16,12 @@ public class FinalizarBatalla extends ComandosServer {
     @Override
     public void ejecutar() {
 
-	PaqueteFinalizarBatalla paqueteFinalizarBatalla = gson.fromJson(cadenaLeida,
-		PaqueteFinalizarBatalla.class);
+	PaqueteFinalizarBatalla paqueteFinalizarBatalla = gson.fromJson(cadenaLeida, PaqueteFinalizarBatalla.class);
 	escuchaCliente.setPaqueteFinalizarBatalla(paqueteFinalizarBatalla);
 	Servidor.getPersonajesConectados().get(escuchaCliente.getPaqueteFinalizarBatalla().getId())
 		.setEstado(Estado.getEstadoJuego());
 
-	if (escuchaCliente.getPaqueteFinalizarBatalla().getIdEnemigo() > 0) // Batalló contra otro personaje
-	{
+	if (escuchaCliente.getPaqueteFinalizarBatalla().getIdEnemigo() > 0) {
 	    Servidor.getConector().actualizarInventario(paqueteFinalizarBatalla.getGanadorBatalla());
 	    Servidor.getPersonajesConectados().get(escuchaCliente.getPaqueteFinalizarBatalla().getIdEnemigo())
 		    .setEstado(Estado.getEstadoJuego());

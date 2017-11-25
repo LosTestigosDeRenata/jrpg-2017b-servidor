@@ -6,9 +6,8 @@ import mensajeria.PaqueteDeNpcs;
 import servidor.EscuchaCliente;
 import servidor.Servidor;
 
-
 /**
- * Clase ActualizarPersonaje  Se actualiza al personaje 
+ * Clase ActualizarPersonaje Se actualiza al personaje
  */
 public class ActualizarNpcs extends ComandosServer {
     @Override

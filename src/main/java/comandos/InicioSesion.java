@@ -9,7 +9,6 @@ import mensajeria.PaquetePersonaje;
 import mensajeria.PaqueteUsuario;
 import servidor.Servidor;
 
-
 /**
  * Clase InicioSecion
  */

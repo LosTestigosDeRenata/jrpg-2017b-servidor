@@ -241,7 +241,7 @@ public class EscuchaCliente extends Thread {
 		return paquetePelear;
 	}
 
-	public void setPaquetePelear(PaquetePelear paquetePelear) {
+	public void setPaquetePelear(final PaquetePelear paquetePelear) {
 		this.paquetePelear = paquetePelear;
 	}
 

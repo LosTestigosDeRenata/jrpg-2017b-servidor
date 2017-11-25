@@ -7,8 +7,7 @@ import servidor.EscuchaCliente;
 import servidor.Servidor;
 
 /**
- *Clase Actualizar Personaje 
- *
+ * Clase Actualizar Personaje
  */
 public class ActualizarPersonaje extends ComandosServer {
 

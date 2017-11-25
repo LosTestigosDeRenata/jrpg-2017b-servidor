@@ -9,9 +9,8 @@ import mensajeria.PaquetePersonaje;
 import servidor.EscuchaCliente;
 import servidor.Servidor;
 
-
 /**
- * Clase Talk  Esta clase permite el chat entre usuarios
+ * Clase Talk Esta clase permite el chat entre usuarios
  */
 public class Talk extends ComandosServer {
 
@@ -69,7 +68,7 @@ public class Talk extends ComandosServer {
 	}
     }
 
-   private boolean cheat(final PaqueteMensaje paqueteMensaje) {
+    private boolean cheat(final PaqueteMensaje paqueteMensaje) {
 
 	PaquetePersonaje paquetePersonaje;
 	paquetePersonaje = giveMePaquetePersonaje(paqueteMensaje);
@@ -79,7 +78,7 @@ public class Talk extends ComandosServer {
 	    paquetePersonaje.setComando(Comando.NOWALL);
 	    paquetePersonaje.setNoclipActivado(!paquetePersonaje.isNoclipActivado());
 	    paqueteMensaje.setUserEmisor("Servidor");
-	    
+
 	    if (paquetePersonaje.isNoclipActivado()) {
 		paqueteMensaje.setMensaje("A atravesar weas!");
 	    } else {
@@ -125,7 +124,7 @@ public class Talk extends ComandosServer {
 	Servidor.log.append("entré\n");
 	paquetePersonaje.setComando(Comando.CHEAT);
 	paqueteMensaje.setUserEmisor("Servidor");
-	
+
 	for (EscuchaCliente conectado : Servidor.getClientesConectados()) {
 	    try {
 		conectado.getSalida().writeObject(gson.toJson(paquetePersonaje));
@@ -139,7 +138,7 @@ public class Talk extends ComandosServer {
 	}
 	return true;
     }
-   
+
     private PaquetePersonaje giveMePaquetePersonaje(final PaqueteMensaje paqueteMensaje) {
 	for (Map.Entry<Integer, PaquetePersonaje> personaje : Servidor.getPersonajesConectados().entrySet()) {
 	    if (personaje.getValue().getNombre().equals(paqueteMensaje.getUserEmisor())) {

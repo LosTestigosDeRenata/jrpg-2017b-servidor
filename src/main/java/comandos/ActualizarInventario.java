@@ -7,7 +7,6 @@ import servidor.EscuchaCliente;
 import servidor.Servidor;
 
 /**
- * 
  * Clase Actualizar Inventario
  */
 public class ActualizarInventario extends ComandosServer {
